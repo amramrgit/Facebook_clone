@@ -12,7 +12,12 @@ class BlogsController < ApplicationController
 
   # GET /blogs/new
   def new
-    @blog = Blog.new
+    #値が初期化されない戻るボタンを作成
+    if params[:back]
+      @blog = Blog.new(blog_params)
+    else
+      @blog = Blog.new
+    end
   end
 
   # GET /blogs/1/edit

@@ -4,23 +4,28 @@
 
 <%= form_with(model:@blog, url:blogs_path, local:true) do |form| %>
 
-<% if @blog.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@blog.errors.count, "error") %> prohibited this blog from being saved:</h2>
-
-    <ul>
-    <% @blog.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-    <% end %>
-    </ul>
-  </div>
-<% end %>
-
+  <% if @blog.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@blog.errors.count, "error") %> prohibited this blog from being saved:</h2>
+      <ul>
+      <% @blog.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
 
   <%= form.hidden_field:title %>
   <%= form.hidden_field:content %>
-
   <p> タイトル:<%= @blog.title %> </p>
   <p> 内容: <%=@blog.content %> </p>
   <%= form.submit "登録する" %>
+
 <% end %>
+  <!-- 値をparametersで送ることができる、戻るボタンを実装 -->
+  <!-- HTTPメソッドがgetになるので注意 -->
+  <%= form_with(model:@blog, url:new_blog_path, local:true, method:'get')do|form|%>
+    <%= form.hidden_field:title %>
+    <%= form.hidden_field:content %>
+    <%= form.submit '戻る', name:'back'%>
+  <% end %>

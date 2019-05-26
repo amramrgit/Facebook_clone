@@ -1,0 +1,26 @@
+<h1>投稿確認画面</h1>
+
+<h3>以下の内容で投稿します。</h3>
+
+<%= form_with(model:@blog, url:blogs_path, local:true) do |form| %>
+
+<% if @blog.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@blog.errors.count, "error") %> prohibited this blog from being saved:</h2>
+
+    <ul>
+    <% @blog.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+
+  <%= form.hidden_field:title %>
+  <%= form.hidden_field:content %>
+
+  <p> タイトル:<%= @blog.title %> </p>
+  <p> 内容: <%=@blog.content %> </p>
+  <%= form.submit "登録する" %>
+<% end %>
